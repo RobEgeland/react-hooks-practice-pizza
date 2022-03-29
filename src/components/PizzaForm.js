@@ -1,8 +1,20 @@
-import React from "react";
 
-function PizzaForm() {
+import React, {useState} from "react";
+
+function PizzaForm({handlePizzaUpdate, vegetarian, size, topping, setVegetarian, setTopping, setSize}) {
+
+  function handleChange(event){
+    setTopping(event.target.value)
+  }
+
+  function handleSizeChange(e) {
+    setSize(e.target.value)
+  }
+
+  
+
   return (
-    <form onSubmit={null /*handle that submit*/}>
+    <form onSubmit={handlePizzaUpdate}>
       <div className="form-row">
         <div className="col-5">
           <input
@@ -10,10 +22,12 @@ function PizzaForm() {
             type="text"
             name="topping"
             placeholder="Pizza Topping"
+            value={topping}
+            onChange={handleChange}
           />
         </div>
         <div className="col">
-          <select className="form-control" name="size">
+          <select onChange={handleSizeChange} value={size} className="form-control" name="size">
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
             <option value="Large">Large</option>
@@ -26,6 +40,9 @@ function PizzaForm() {
               type="radio"
               name="vegetarian"
               value="Vegetarian"
+              checked={vegetarian ? 'checked' : ''}
+              onClick={() => setVegetarian(true)}
+              
             />
             <label className="form-check-label">Vegetarian</label>
           </div>
@@ -35,6 +52,8 @@ function PizzaForm() {
               type="radio"
               name="vegetarian"
               value="Not Vegetarian"
+              checked={vegetarian ? '' : 'checked'}
+              onClick={() => setVegetarian(false)}
             />
             <label className="form-check-label">Not Vegetarian</label>
           </div>
